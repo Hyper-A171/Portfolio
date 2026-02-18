@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Adarsh Mishra - Portfolio</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#256af4",
+                        "accent-green": "#00ff9d",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#05080f", "glass": "rgba(255, 255, 255, 0.03)",
+                        "glass-border": "rgba(255, 255, 255, 0.08)",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #1f293a 1px, transparent 1px), linear-gradient(to bottom, #1f293a 1px, transparent 1px)",
+                        'holo-gradient': "linear-gradient(135deg, rgba(37, 106, 244, 0.1) 0%, rgba(0, 255, 157, 0.05) 100%)",
+                    },
+                    boxShadow: {
+                        'neon-blue': '0 0 10px rgba(37, 106, 244, 0.5), 0 0 20px rgba(37, 106, 244, 0.3)',
+                        'neon-green': '0 0 10px rgba(0, 255, 157, 0.5), 0 0 20px rgba(0, 255, 157, 0.3)',
+                        'cinematic-glow': '0 0 40px rgba(37, 106, 244, 0.4), 0 0 80px rgba(37, 106, 244, 0.2)',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 15s linear infinite',
+                        'spin-slow-reverse': 'spin 20s linear infinite reverse',
+                        'scanline': 'scanline 8s linear infinite',
+                        'underline-sweep': 'underlineSweep 2s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'float-slow': 'float 8s ease-in-out infinite',
+                        'reveal-up': 'revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        scanline: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(100%)' },
+                        },
+                        underlineSweep: {
+                            '0%, 100%': { width: '0%', left: '0', opacity: '0' },
+                            '50%': { width: '100%', left: '0', opacity: '1' },
+                            '51%': { width: '100%', right: '0', opacity: '1' },
+                            '100%': { width: '0%', right: '0', opacity: '0' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.6', boxShadow: '0 0 15px rgba(37, 106, 244, 0.5)' },
+                            '50%': { opacity: '1', boxShadow: '0 0 30px rgba(37, 106, 244, 0.8)' },
+                        },
+                        float: {
+                            '0%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                            '100%': { transform: 'translateY(0px)' },
+                        },
+                        revealUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            color: #00ff9d;
+            text-shadow: 0 0 10px #00ff9d;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .scene {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .globe {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            transform-style: preserve-3d;
+            animation: rotateGlobe 30s linear infinite;
+        }
+
+        .ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 1px solid rgba(37, 106, 244, 0.2);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(37, 106, 244, 0.1);
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes rotateGlobe {
+            0% {
+                transform: rotateY(0deg) rotateX(20deg);
+            }
+
+            100% {
+                transform: rotateY(360deg) rotateX(20deg);
+            }
+        }
+
+        .holo-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(90deg, transparent 50%, rgba(255, 255, 255, 0.03) 50%),
+                linear-gradient(0deg, transparent 50%, rgba(255, 255, 255, 0.03) 50%);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 1;
+            border-radius: inherit;
+        }
+
+        .reveal-delay-100 {
+            animation-delay: 100ms;
+        }
+
+        .reveal-delay-200 {
+            animation-delay: 200ms;
+        }
+
+        .reveal-delay-300 {
+            animation-delay: 300ms;
+        }
+
+        .reveal-delay-400 {
+            animation-delay: 400ms;
+        }
+
+        .reveal-delay-500 {
+            animation-delay: 500ms;
+        }
+
+        .cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(37, 106, 244, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            top: 50%;
+            left: 50%;
+            animation: pulse-cursor 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-cursor {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-200 antialiased selection:bg-primary selection:text-white overflow-x-hidden">
+    <div class="cursor-glow hidden lg:block"></div>
+    <nav
+        class="fixed top-0 z-50 w-full border-b border-white/5 bg-background-dark/60 backdrop-blur-xl supports-[backdrop-filter]:bg-background-dark/40">
+        <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-2 group cursor-pointer">
+                <div
+                    class="relative flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 border border-primary/20 group-hover:bg-primary/20 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(37,106,244,0.4)]">
+                    <span
+                        class="material-symbols-outlined text-primary text-2xl group-hover:animate-pulse">security</span>
+                </div>
+                <span
+                    class="text-xl font-bold tracking-tight text-white group-hover:text-primary transition-colors duration-300">AM<span
+                        class="text-accent-green">_</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a class="relative text-sm font-medium text-slate-300 transition hover:text-white group py-1" href="#">
+                    Home
+                    <span
+                        class="absolute bottom-0 left-0 w-0 h-[1px] bg-accent-green transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a class="relative text-sm font-medium text-slate-300 transition hover:text-white group py-1"
+                    href="#about">
+                    About
+                    <span
+                        class="absolute bottom-0 left-0 w-0 h-[1px] bg-accent-green transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a class="relative text-sm font-medium text-slate-300 transition hover:text-white group py-1"
+                    href="#projects">
+                    Projects
+                    <span
+                        class="absolute bottom-0 left-0 w-0 h-[1px] bg-accent-green transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a class="relative text-sm font-medium text-slate-300 transition hover:text-white group py-1"
+                    href="#skills">
+                    Skills
+                    <span
+                        class="absolute bottom-0 left-0 w-0 h-[1px] bg-accent-green transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </div>
+            <button
+                class="hidden md:flex items-center gap-2 rounded-lg bg-white/5 px-5 py-2.5 text-sm font-medium text-primary border border-primary/30 transition-all hover:bg-primary/20 hover:shadow-[0_0_20px_rgba(37,106,244,0.3)] hover:border-primary/60 active:scale-95">
+                <span class="material-symbols-outlined text-lg">download</span>
+                Resume
+            </button>
+            <button class="md:hidden text-white hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-3xl">menu_open</span>
+            </button>
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-50">
+        </div>
+    </nav>
+    <main class="relative w-full overflow-hidden">
+        <div class="fixed inset-0 z-0 pointer-events-none">
+            <div
+                class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_100%)]">
+            </div>
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20 pointer-events-none scene">
+                <div class="globe">
+                    <div class="ring"
+                        style="width: 100%; height: 100%; transform: rotateY(0deg) translate(-50%, -50%);"></div>
+                    <div class="ring"
+                        style="width: 100%; height: 100%; transform: rotateY(30deg) translate(-50%, -50%);"></div>
+                    <div class="ring"
+                        style="width: 100%; height: 100%; transform: rotateY(60deg) translate(-50%, -50%);"></div>
+                    <div class="ring"
+                        style="width: 100%; height: 100%; transform: rotateY(90deg) translate(-50%, -50%);"></div>
+                    <div class="ring"
+                        style="width: 100%; height: 100%; transform: rotateY(120deg) translate(-50%, -50%);"></div>
+                    <div class="ring"
+                        style="width: 100%; height: 100%; transform: rotateY(150deg) translate(-50%, -50%);"></div>
+                    <div class="ring" style="width: 90%; height: 90%; border-style: dashed;"></div>
+                    <div class="ring" style="width: 70%; height: 70%;"></div>
+                    <div class="ring" style="width: 50%; height: 50%; border-style: dashed;"></div>
+                    <div class="ring" style="width: 30%; height: 30%;"></div>
+                </div>
+            </div>
+            <div
+                class="absolute -top-[10%] -left-[10%] h-[600px] w-[600px] rounded-full bg-primary/10 blur-[120px] animate-float-slow">
+            </div>
+            <div class="absolute bottom-[0%] -right-[10%] h-[500px] w-[500px] rounded-full bg-accent-green/5 blur-[100px] animate-float-slow"
+                style="animation-delay: 2s;"></div>
+        </div>
+        <div class="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col px-4 sm:px-6 lg:px-8">
+            <section
+                class="flex flex-col items-center justify-center pt-36 pb-24 text-center lg:pt-52 lg:pb-40 min-h-[90vh]">
+                <div
+                    class="mb-8 inline-flex items-center gap-3 rounded-full border border-primary/30 bg-primary/5 px-5 py-2 backdrop-blur-md animate-reveal-up opacity-0">
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-green opacity-75"></span>
+                        <span
+                            class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-green shadow-[0_0_10px_#00ff9d]"></span>
+                    </span>
+                    <span class="text-xs font-bold uppercase tracking-[0.2em] text-primary/80">System Online // Open for
+                        Work</span>
+                </div>
+                <h1
+                    class="mb-8 text-6xl font-bold leading-tight tracking-tighter text-white sm:text-7xl lg:text-9xl animate-reveal-up opacity-0 reveal-delay-100">
+                    <span class="block relative z-10 drop-shadow-[0_0_25px_rgba(37,106,244,0.6)]"
+                        style="-webkit-text-stroke: 1px rgba(255,255,255,0.1);">
+                        Adarsh Mishra
+                        <span
+                            class="absolute inset-0 bg-gradient-to-b from-white via-white to-transparent bg-clip-text text-transparent opacity-80 mix-blend-overlay">Adarsh
+                            Mishra</span>
+                    </span>
+                </h1>
+                <div class="mb-12 h-10 sm:h-12 animate-reveal-up opacity-0 reveal-delay-200">
+                    <div class="inline-flex items-center gap-3 rounded-lg bg-white/5 px-4 py-1 border border-white/5">
+                        <span class="material-symbols-outlined text-primary text-lg">terminal</span>
+                        <h2
+                            class="typing-cursor font-mono text-lg font-medium text-slate-200 sm:text-xl lg:text-2xl tracking-wide">
+                            <span class="text-primary">&gt;</span> Cybersecurity Enthusiast <span
+                                class="text-slate-600 mx-2">//</span> Full-Stack Developer
+                        </h2>
+                    </div>
+                </div>
+                <p
+                    class="mx-auto mb-12 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg animate-reveal-up opacity-0 reveal-delay-300">
+                    Architecting resilient digital fortresses. I bridge the void between <span
+                        class="text-white font-medium border-b border-primary/50">secure code</span> and <span
+                        class="text-white font-medium border-b border-primary/50">cinematic interfaces</span> to build
+                    experiences that survive the modern web.
+                </p>
+                <div
+                    class="flex flex-col w-full sm:w-auto sm:flex-row gap-5 sm:gap-8 animate-reveal-up opacity-0 reveal-delay-400">
+                    <a class="group relative flex items-center justify-center gap-3 overflow-hidden rounded-sm bg-primary px-10 py-4 text-base font-bold text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,106,244,0.6)]"
+                        href="#projects">
+                        <div
+                            class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1s_infinite]">
+                        </div>
+                        <span class="relative z-10">INITIALIZE_PROJECTS</span>
+                        <span
+                            class="material-symbols-outlined text-xl transition-transform group-hover:translate-x-1 relative z-10">arrow_forward_ios</span>
+                        <span
+                            class="absolute top-0 left-0 h-2 w-2 border-t-2 border-l-2 border-white opacity-50"></span>
+                        <span
+                            class="absolute bottom-0 right-0 h-2 w-2 border-b-2 border-r-2 border-white opacity-50"></span>
+                    </a>
+                    <a class="group flex items-center justify-center gap-3 rounded-sm border border-white/10 bg-white/5 px-10 py-4 text-base font-bold text-white backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                        href="#contact">
+                        <span>ESTABLISH_UPLINK</span>
+                        <span
+                            class="material-symbols-outlined text-xl group-hover:text-accent-green transition-colors">satellite_alt</span>
+                    </a>
+                </div>
+                <div
+                    class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
+                    <span class="text-[10px] uppercase tracking-widest text-slate-500">Scroll to Explore</span>
+                    <span class="material-symbols-outlined text-primary">keyboard_double_arrow_down</span>
+                </div>
+            </section>
+            <section class="relative w-full py-24 lg:py-32" id="about">
+                <div class="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-20 items-center">
+                    <div class="lg:col-span-5 flex justify-center lg:justify-start order-2 lg:order-1">
+                        <div class="relative group w-full max-w-[320px] aspect-square mx-auto lg:mx-0">
+                            <div
+                                class="absolute inset-[-20%] rounded-full border border-primary/20 border-dashed animate-spin-slow">
+                            </div>
+                            <div
+                                class="absolute inset-[-10%] rounded-full border border-accent-green/20 border-dotted animate-spin-slow-reverse">
+                            </div>
+                            <div
+                                class="absolute inset-[-40px] rounded-full border-2 border-transparent border-t-primary/40 border-b-primary/40 animate-spin duration-[8s] linear infinite opacity-30">
+                            </div>
+                            <div class="absolute inset-0 rounded-full bg-primary/20 blur-[60px] animate-pulse-glow">
+                            </div>
+                            <div
+                                class="relative h-full w-full overflow-hidden rounded-full border-4 border-white/5 bg-background-dark p-2 backdrop-blur-sm z-10 shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+                                <div
+                                    class="absolute inset-0 z-20 bg-gradient-to-tr from-primary/20 to-transparent mix-blend-overlay pointer-events-none">
+                                </div>
+                                <img alt="Professional headshot of a developer in a dark setting"
+                                    class="h-full w-full rounded-full object-cover grayscale brightness-110 contrast-125 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-110"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsAEV7JQIaY4lL9bHMsLRtOOZ5DZeFnT7spyxd1Ypt2KqoedRo4PWannv8W3R_6gmf7fDG4xPCJu82aOrZq5fIV-yjTvaQv-0JJOzrC9v8UzHvSwuNaiIMddOju-W_inWW6IYfS2HZXXloZnnXOcH1QRfppa6zZN8zdqh6eS5rR69rowU3xeqXB9HK7HllFdCsPod4Wnc7v5kQpXVjjf9WVZQErsoHgHrAL7Qz-0Zmomd5vCcTGajyL1r5zsmeu2gV5raxB0ooH5Cz" />
+                                <div
+                                    class="absolute inset-0 z-30 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-30 pointer-events-none">
+                                </div>
+                            </div>
+                            <div class="absolute -bottom-6 -right-6 z-20 flex items-center gap-3 rounded-lg border border-primary/30 bg-background-dark/90 px-5 py-3 shadow-[0_0_30px_rgba(0,0,0,0.6)] backdrop-blur-xl animate-float-slow"
+                                style="animation-delay: 1s;">
+                                <div class="relative">
+                                    <span
+                                        class="material-symbols-outlined text-accent-green text-2xl animate-pulse">verified_user</span>
+                                    <div class="absolute inset-0 bg-accent-green blur-md opacity-40"></div>
+                                </div>
+                                <div class="flex flex-col">
+                                    <p class="text-[10px] uppercase tracking-wider text-primary">Security Level</p>
+                                    <p class="text-sm font-bold text-white font-mono">MAXIMUM_CLEARANCE</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 order-1 lg:order-2">
+                        <div
+                            class="holo-card relative rounded-2xl border border-white/10 bg-glass p-8 backdrop-blur-xl lg:p-12 overflow-hidden group hover:border-primary/30 transition-colors duration-500">
+                            <div
+                                class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-transparent">
+                            </div>
+                            <div class="mb-8 flex items-center gap-4 relative z-10">
+                                <div
+                                    class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(37,106,244,0.2)]">
+                                    <span class="material-symbols-outlined text-2xl">fingerprint</span>
+                                </div>
+                                <div>
+                                    <h2 class="text-3xl font-bold text-white font-display tracking-tight">System
+                                        Identity</h2>
+                                    <p class="text-xs text-primary/70 font-mono mt-0.5">ID: AM-2024 // BIO_DATA</p>
+                                </div>
+                            </div>
+                            <div class="space-y-6 text-slate-300 relative z-10">
+                                <p class="leading-relaxed text-lg font-light">
+                                    Greetings. I am <span class="font-bold text-white">Adarsh Mishra</span>, operating
+                                    at the nexus of functionality and fortification. My expertise transforms simple
+                                    scripts into <span
+                                        class="text-white relative inline-block group/kw cursor-help"><span
+                                            class="relative z-10">full-stack architectures</span><span
+                                            class="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-hover/kw:scale-x-100 transition-transform origin-left duration-300"></span></span>
+                                    capable of withstanding the most sophisticated cyber threats.
+                                </p>
+                                <p class="leading-relaxed text-lg font-light">
+                                    I specialize in crafting secure, scalable web ecosystems. With a foundation in <span
+                                        class="text-accent-green font-medium relative inline-block"><span
+                                            class="relative z-10">Ethical Hacking</span><span
+                                            class="absolute bottom-0 left-0 h-[2px] bg-accent-green animate-underline-sweep w-full"></span></span>,
+                                    I preemptively neutralize vulnerabilities, ensuring every line of code is a shield
+                                    for the user experience.
+                                </p>
+                            </div>
+                            <div class="mt-10 relative z-10">
+                                <div class="flex items-center gap-4 mb-5">
+                                    <div class="h-[1px] flex-1 bg-white/10"></div>
+                                    <h3 class="text-xs font-bold uppercase tracking-[0.2em] text-primary glow-text">Core
+                                        Protocols</h3>
+                                    <div class="h-[1px] flex-1 bg-white/10"></div>
+                                </div>
+                                <div class="flex flex-wrap gap-3">
+                                    <div
+                                        class="group flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 transition-all hover:border-primary/60 hover:bg-primary/10 hover:shadow-[0_0_15px_rgba(37,106,244,0.2)]">
+                                        <span
+                                            class="material-symbols-outlined text-lg text-primary group-hover:text-white transition-colors">lock_person</span>
+                                        <span
+                                            class="text-sm font-medium text-slate-300 group-hover:text-white">Penetration
+                                            Testing</span>
+                                    </div>
+                                    <div
+                                        class="group flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 transition-all hover:border-primary/60 hover:bg-primary/10 hover:shadow-[0_0_15px_rgba(37,106,244,0.2)]">
+                                        <span
+                                            class="material-symbols-outlined text-lg text-primary group-hover:text-white transition-colors">encrypted</span>
+                                        <span class="text-sm font-medium text-slate-300 group-hover:text-white">Secure
+                                            Coding</span>
+                                    </div>
+                                    <div
+                                        class="group flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 transition-all hover:border-primary/60 hover:bg-primary/10 hover:shadow-[0_0_15px_rgba(37,106,244,0.2)]">
+                                        <span
+                                            class="material-symbols-outlined text-lg text-primary group-hover:text-white transition-colors">terminal</span>
+                                        <span
+                                            class="text-sm font-medium text-slate-300 group-hover:text-white">Python</span>
+                                    </div>
+                                    <div
+                                        class="group flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 transition-all hover:border-primary/60 hover:bg-primary/10 hover:shadow-[0_0_15px_rgba(37,106,244,0.2)]">
+                                        <span
+                                            class="material-symbols-outlined text-lg text-primary group-hover:text-white transition-colors">javascript</span>
+                                        <span class="text-sm font-medium text-slate-300 group-hover:text-white">React
+                                            &amp; Node.js</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-10 flex justify-between border-t border-white/5 pt-8 relative z-10">
+                                <div class="text-center px-4 border-r border-white/5 last:border-0 w-1/3">
+                                    <p class="text-4xl font-bold text-white font-mono tracking-tighter">03<span
+                                            class="text-primary text-2xl">+</span></p>
+                                    <p class="text-[10px] uppercase tracking-widest text-slate-500 mt-2">Years Active
+                                    </p>
+                                </div>
+                                <div class="text-center px-4 border-r border-white/5 last:border-0 w-1/3">
+                                    <p class="text-4xl font-bold text-white font-mono tracking-tighter">20<span
+                                            class="text-primary text-2xl">+</span></p>
+                                    <p class="text-[10px] uppercase tracking-widest text-slate-500 mt-2">Deployments</p>
+                                </div>
+                                <div class="text-center px-4 w-1/3">
+                                    <p
+                                        class="text-4xl font-bold text-accent-green font-mono tracking-tighter shadow-green-glow drop-shadow-[0_0_8px_rgba(0,255,157,0.5)]">
+                                        100<span class="text-lg">%</span></p>
+                                    <p class="text-[10px] uppercase tracking-widest text-slate-500 mt-2">Secure</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Skills Section -->
+            <section class="py-24 lg:py-32 relative" id="skills">
+                <div class="mb-16 md:mb-24 flex flex-col items-center">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tighter">
+                        <span class="text-primary">&lt;</span> TECHNICAL_ARSENAL <span class="text-primary">/&gt;</span>
+                    </h2>
+                    <div class="h-1 w-24 bg-gradient-to-r from-transparent via-accent-green to-transparent opacity-50">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Programming -->
+                    <div
+                        class="group relative p-1 rounded-2xl bg-gradient-to-b from-white/10 to-transparent hover:from-primary/50 hover:to-primary/10 transition-all duration-500">
+                        <div
+                            class="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                        <div
+                            class="relative h-full bg-background-dark rounded-xl p-6 border border-white/5 group-hover:border-primary/50 transition-colors">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="p-3 rounded-lg bg-primary/10 text-primary">
+                                    <span class="material-symbols-outlined">code</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-white font-display">Programming</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">JavaScript</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">TypeScript</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">Python
+                                    (Flask)</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">Dart
+                                    (Flutter)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Web Development -->
+                    <div
+                        class="group relative p-1 rounded-2xl bg-gradient-to-b from-white/10 to-transparent hover:from-primary/50 hover:to-primary/10 transition-all duration-500">
+                        <div
+                            class="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                        <div
+                            class="relative h-full bg-background-dark rounded-xl p-6 border border-white/5 group-hover:border-primary/50 transition-colors">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="p-3 rounded-lg bg-primary/10 text-primary">
+                                    <span class="material-symbols-outlined">web</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-white font-display">Web Development</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">React</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">Vite</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">Node.js</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">REST
+                                    APIs</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">Firebase</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Databases -->
+                    <div
+                        class="group relative p-1 rounded-2xl bg-gradient-to-b from-white/10 to-transparent hover:from-primary/50 hover:to-primary/10 transition-all duration-500">
+                        <div
+                            class="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                        <div
+                            class="relative h-full bg-background-dark rounded-xl p-6 border border-white/5 group-hover:border-primary/50 transition-colors">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="p-3 rounded-lg bg-primary/10 text-primary">
+                                    <span class="material-symbols-outlined">database</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-white font-display">Databases</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">MySQL</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">Firestore</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tools -->
+                    <div
+                        class="group relative p-1 rounded-2xl bg-gradient-to-b from-white/10 to-transparent hover:from-primary/50 hover:to-primary/10 transition-all duration-500">
+                        <div
+                            class="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                        <div
+                            class="relative h-full bg-background-dark rounded-xl p-6 border border-white/5 group-hover:border-primary/50 transition-colors">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="p-3 rounded-lg bg-primary/10 text-primary">
+                                    <span class="material-symbols-outlined">build</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-white font-display">Tools</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">Git/GitHub</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">VS
+                                    Code</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">Postman</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-primary/50 hover:text-white transition-colors">Google
+                                    Workspace</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cybersecurity -->
+                    <div
+                        class="group relative p-1 rounded-2xl bg-gradient-to-b from-white/10 to-transparent hover:from-accent-green/50 hover:to-accent-green/10 transition-all duration-500 md:col-span-2">
+                        <div
+                            class="absolute inset-0 bg-accent-green/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        </div>
+                        <div
+                            class="relative h-full bg-background-dark rounded-xl p-6 border border-white/5 group-hover:border-accent-green/50 transition-colors">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="p-3 rounded-lg bg-accent-green/10 text-accent-green">
+                                    <span class="material-symbols-outlined">security</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-white font-display">Cybersecurity Ops</h3>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-accent-green/50 hover:text-white transition-colors">Vulnerability
+                                    Assessment</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-accent-green/50 hover:text-white transition-colors">Web
+                                    Security Basics</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-accent-green/50 hover:text-white transition-colors">CTFs</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-accent-green/50 hover:text-white transition-colors">CyberChef</span>
+                                <span
+                                    class="px-3 py-1 text-sm rounded-full bg-white/5 text-slate-300 border border-white/5 hover:border-accent-green/50 hover:text-white transition-colors">IoT
+                                    Security (ESP8266/ESP32)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="py-24 lg:py-32 relative" id="projects">
+                <div class="mb-16 md:mb-24 flex flex-col items-center">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tighter">
+                        <span class="text-primary">&lt;</span> DEPLOYED_SYSTEMS <span class="text-primary">/&gt;</span>
+                    </h2>
+                    <div class="h-1 w-24 bg-gradient-to-r from-transparent via-accent-green to-transparent opacity-50">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Project 1 -->
+                    <div
+                        class="group relative rounded-2xl overflow-hidden border border-white/10 bg-glass transition-all hover:border-primary/50 hover:shadow-[0_0_30px_rgba(37,106,244,0.15)]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent z-10">
+                        </div>
+                        <div class="absolute top-0 right-0 p-4 z-20">
+                            <span
+                                class="bg-black/50 backdrop-blur border border-white/10 text-xs font-mono px-3 py-1 rounded text-primary">AI
+                                + VISION</span>
+                        </div>
+                        <div class="p-8 relative z-20 h-full flex flex-col">
+                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                                NexaCore</h3>
+                            <p class="text-sm font-mono text-slate-400 mb-4">AI-powered Life Planner</p>
+                            <p class="text-slate-300 mb-6 line-clamp-3">Built an AI-assisted planner using GPT-4 with
+                                emotion analysis using DeepFace/OpenCV; integrated voice assistant flow and automated
+                                PDF reporting.</p>
+                            <div class="mt-auto flex flex-wrap gap-2 mb-6">
+                                <span class="text-xs font-mono text-accent-green">#GPT-4</span>
+                                <span class="text-xs font-mono text-accent-green">#DeepFace</span>
+                                <span class="text-xs font-mono text-accent-green">#OpenCV</span>
+                            </div>
+                            <a href="#"
+                                class="inline-flex items-center gap-2 text-primary hover:text-white transition-colors">
+                                <span class="text-sm font-bold">VIEW SYSTEM</span>
+                                <span class="material-symbols-outlined text-sm">arrow_outward</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div
+                        class="group relative rounded-2xl overflow-hidden border border-white/10 bg-glass transition-all hover:border-primary/50 hover:shadow-[0_0_30px_rgba(37,106,244,0.15)]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent z-10">
+                        </div>
+                        <div class="absolute top-0 right-0 p-4 z-20">
+                            <span
+                                class="bg-black/50 backdrop-blur border border-white/10 text-xs font-mono px-3 py-1 rounded text-primary">ED-TECH</span>
+                        </div>
+                        <div class="p-8 relative z-20 h-full flex flex-col">
+                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                                Smart Education System</h3>
+                            <p class="text-sm font-mono text-slate-400 mb-4">Role-based Management Platform</p>
+                            <p class="text-slate-300 mb-6 line-clamp-3">Developed role-based dashboards
+                                (Admin/Teacher/Student) with Firebase-backed data and AI-driven recommendations.</p>
+                            <div class="mt-auto flex flex-wrap gap-2 mb-6">
+                                <span class="text-xs font-mono text-accent-green">#Firebase</span>
+                                <span class="text-xs font-mono text-accent-green">#AI</span>
+                                <span class="text-xs font-mono text-accent-green">#React</span>
+                            </div>
+                            <a href="#"
+                                class="inline-flex items-center gap-2 text-primary hover:text-white transition-colors">
+                                <span class="text-sm font-bold">VIEW SYSTEM</span>
+                                <span class="material-symbols-outlined text-sm">arrow_outward</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div
+                        class="group relative rounded-2xl overflow-hidden border border-white/10 bg-glass transition-all hover:border-primary/50 hover:shadow-[0_0_30px_rgba(37,106,244,0.15)]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent z-10">
+                        </div>
+                        <div class="absolute top-0 right-0 p-4 z-20">
+                            <span
+                                class="bg-black/50 backdrop-blur border border-white/10 text-xs font-mono px-3 py-1 rounded text-primary">HEALTH-TECH</span>
+                        </div>
+                        <div class="p-8 relative z-20 h-full flex flex-col">
+                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                                SelfieAnalysis Component</h3>
+                            <p class="text-sm font-mono text-slate-400 mb-4">Biometric Wellness Tool</p>
+                            <p class="text-slate-300 mb-6 line-clamp-3">Created a React component for facial
+                                wellness/emotion signals using face analysis models; stored outputs securely with
+                                Firebase Storage.</p>
+                            <div class="mt-auto flex flex-wrap gap-2 mb-6">
+                                <span class="text-xs font-mono text-accent-green">#React</span>
+                                <span class="text-xs font-mono text-accent-green">#FaceAPI</span>
+                                <span class="text-xs font-mono text-accent-green">#Firebase</span>
+                            </div>
+                            <a href="#"
+                                class="inline-flex items-center gap-2 text-primary hover:text-white transition-colors">
+                                <span class="text-sm font-bold">VIEW SYSTEM</span>
+                                <span class="material-symbols-outlined text-sm">arrow_outward</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div
+                        class="group relative rounded-2xl overflow-hidden border border-white/10 bg-glass transition-all hover:border-primary/50 hover:shadow-[0_0_30px_rgba(37,106,244,0.15)]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent z-10">
+                        </div>
+                        <div class="absolute top-0 right-0 p-4 z-20">
+                            <span
+                                class="bg-black/50 backdrop-blur border border-white/10 text-xs font-mono px-3 py-1 rounded text-primary">IOT
+                                + SECURITY</span>
+                        </div>
+                        <div class="p-8 relative z-20 h-full flex flex-col">
+                            <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                                IoT Security & Prototyping</h3>
+                            <p class="text-sm font-mono text-slate-400 mb-4">Hardware Security Labs</p>
+                            <p class="text-slate-300 mb-6 line-clamp-3">Worked with ESP8266/ESP32 for real-time IoT
+                                experiments and security learning (access-point concepts, device telemetry).</p>
+                            <div class="mt-auto flex flex-wrap gap-2 mb-6">
+                                <span class="text-xs font-mono text-accent-green">#ESP32</span>
+                                <span class="text-xs font-mono text-accent-green">#IoT</span>
+                                <span class="text-xs font-mono text-accent-green">#Firmware</span>
+                            </div>
+                            <a href="#"
+                                class="inline-flex items-center gap-2 text-primary hover:text-white transition-colors">
+                                <span class="text-sm font-bold">VIEW SYSTEM</span>
+                                <span class="material-symbols-outlined text-sm">arrow_outward</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience & Education -->
+            <section class="py-24 lg:py-32 relative text-center md:text-left">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                    <!-- Professional Experience -->
+                    <div>
+                        <h2
+                            class="text-3xl font-bold text-white mb-10 flex items-center justify-center lg:justify-start gap-3">
+                            <span class="material-symbols-outlined text-primary">work_history</span>
+                            FIELD OPERATIONS
+                        </h2>
+                        <div class="space-y-8 border-l-2 border-white/10 ml-4 md:ml-0 pl-8 md:pl-10 relative">
+                            <div class="relative">
+                                <div
+                                    class="absolute -left-[45px] md:-left-[47px] top-0 h-6 w-6 rounded-full bg-background-dark border-2 border-primary">
+                                </div>
+                                <h3 class="text-xl font-bold text-white">Security & Development Projects</h3>
+                                <p class="text-primary font-mono text-sm mb-2">Academic / Hackathon / Self-driven</p>
+                                <p class="text-slate-400">Hands-on work across web/mobile development and cybersecurity
+                                    labs, including building prototypes, performing basic vulnerability assessment, and
+                                    documenting findings.</p>
+                            </div>
+                            <div class="relative">
+                                <div
+                                    class="absolute -left-[45px] md:-left-[47px] top-0 h-6 w-6 rounded-full bg-background-dark border-2 border-primary">
+                                </div>
+                                <h3 class="text-xl font-bold text-white">Content Creator (Cybersecurity)</h3>
+                                <p class="text-primary font-mono text-sm mb-2">Hyper-A (YouTube)</p>
+                                <p class="text-slate-400">Created beginner-friendly content on ethical hacking concepts,
+                                    tools, and learning pathways; focused on awareness and practical demonstrations.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Education -->
+                    <div>
+                        <h2
+                            class="text-3xl font-bold text-white mb-10 flex items-center justify-center lg:justify-start gap-3">
+                            <span class="material-symbols-outlined text-accent-green">school</span>
+                            ACADEMIC DATABASE
+                        </h2>
+                        <div class="space-y-8 border-l-2 border-white/10 ml-4 md:ml-0 pl-8 md:pl-10 relative">
+                            <div class="relative">
+                                <div
+                                    class="absolute -left-[45px] md:-left-[47px] top-0 h-6 w-6 rounded-full bg-background-dark border-2 border-accent-green">
+                                </div>
+                                <h3 class="text-xl font-bold text-white">Diploma in Computer Engineering</h3>
+                                <p class="text-accent-green font-mono text-sm mb-2">VIVA Institute of Technology</p>
+                                <p class="text-slate-400">Focused on Cybersecurity (ethical hacking, vulnerability
+                                    assessment, and CTFs) and full‑stack development.</p>
+                            </div>
+                        </div>
+
+                        <!-- Achievements Section Integrated -->
+                        <div class="mt-16">
+                            <h2
+                                class="text-3xl font-bold text-white mb-10 flex items-center justify-center lg:justify-start gap-3">
+                                <span class="material-symbols-outlined text-yellow-500">emoji_events</span>
+                                HONORS & AWARDS
+                            </h2>
+                            <div class="space-y-4">
+                                <div
+                                    class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-yellow-500/50 transition-colors">
+                                    <div
+                                        class="h-10 w-10 flex items-center justify-center rounded-full bg-yellow-500/10 text-yellow-500">
+                                        <span class="material-symbols-outlined">trophy</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold">1st Prize - Gyanotech</h4>
+                                        <p class="text-xs text-slate-400">Hackathon Winner</p>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-yellow-500/50 transition-colors">
+                                    <div
+                                        class="h-10 w-10 flex items-center justify-center rounded-full bg-yellow-500/10 text-yellow-500">
+                                        <span class="material-symbols-outlined">workspace_premium</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold">2nd Prize - VIVA-Tech Imperia</h4>
+                                        <p class="text-xs text-slate-400">Project Competition</p>
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-accent-green/50 transition-colors">
+                                    <div
+                                        class="h-10 w-10 flex items-center justify-center rounded-full bg-accent-green/10 text-accent-green">
+                                        <span class="material-symbols-outlined">verified</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-bold">Hack The Box Certifications</h4>
+                                        <p class="text-xs text-slate-400">Vulnerability Assessment, Ethical Hacking</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="py-24 relative" id="contact">
+                <div class="absolute inset-0 bg-primary/5 skew-y-3 -z-10 transform origin-bottom-left"></div>
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tighter">
+                        READY TO <span class="text-primary">COLLABORATE?</span>
+                    </h2>
+                    <p class="text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
+                        Whether you need a full-stack architect or a security consultant, my comms channel is open.
+                        Let's build something secure and scalable.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                        <a href="mailto:Mr.adarsh.work@gmail.com"
+                            class="group relative flex items-center gap-3 px-8 py-4 bg-white text-background-dark font-bold text-lg rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent-green/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                            </div>
+                            <span class="material-symbols-outlined">mail</span>
+                            <span class="relative z-10">Mr.adarsh.work@gmail.com</span>
+                        </a>
+                        <div class="flex gap-4">
+                            <a href="https://www.linkedin.com/in/adarshmishra171/" target="_blank"
+                                class="h-14 w-14 flex items-center justify-center rounded-full bg-background-dark border border-white/20 text-white hover:border-primary hover:text-primary hover:scale-110 transition-all duration-300">
+                                <span class="text-xl font-bold">in</span>
+                            </a>
+                            <a href="https://github.com/Hyper-A171" target="_blank"
+                                class="h-14 w-14 flex items-center justify-center rounded-full bg-background-dark border border-white/20 text-white hover:border-accent-green hover:text-accent-green hover:scale-110 transition-all duration-300">
+                                <span class="material-symbols-outlined">code</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="mt-24 pt-8 border-t border-white/5 text-center text-slate-500 text-sm">
+                    <p>&copy; 2024 Adarsh Mishra. All systems operational.</p>
+                </footer>
+            </section>
+        </div>
+    </main>
+
+</body>
+
+</html>
