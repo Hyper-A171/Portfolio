@@ -75,6 +75,7 @@
             },
         }
     </script>
+
     <style>
         .typing-cursor::after {
             content: '|';
@@ -588,6 +589,260 @@
             transform: translateY(0);
         }
 
+        /* ===== GLITCH TEXT EFFECT ===== */
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch-text {
+            position: relative;
+            color: white;
+            mix-blend-mode: lighten;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: #05080f;
+        }
+
+        .glitch-text::before {
+            left: -2px;
+            text-shadow: 2px 0 #cc00ff;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+            display: none;
+        }
+
+        .glitch-text::after {
+            left: 2px;
+            text-shadow: -2px 0 #256af4;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+            display: none;
+        }
+
+        .glitch-wrapper:hover .glitch-text::before,
+        .glitch-wrapper:hover .glitch-text::after {
+            display: block;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(38px, 9999px, 86px, 0);
+            }
+
+            4.166666667% {
+                clip: rect(27px, 9999px, 19px, 0);
+            }
+
+            8.333333333% {
+                clip: rect(2px, 9999px, 83px, 0);
+            }
+
+            12.5% {
+                clip: rect(78px, 9999px, 43px, 0);
+            }
+
+            16.666666667% {
+                clip: rect(5px, 9999px, 89px, 0);
+            }
+
+            20.833333333% {
+                clip: rect(20px, 9999px, 20px, 0);
+            }
+
+            25% {
+                clip: rect(10px, 9999px, 53px, 0);
+            }
+
+            100% {
+                clip: rect(69px, 9999px, 91px, 0);
+            }
+        }
+
+        @keyframes glitch-anim2 {
+            0% {
+                clip: rect(57px, 9999px, 86px, 0);
+            }
+
+            4.166666667% {
+                clip: rect(56px, 9999px, 3px, 0);
+            }
+
+            8.333333333% {
+                clip: rect(53px, 9999px, 2px, 0);
+            }
+
+            12.5% {
+                clip: rect(62px, 9999px, 45px, 0);
+            }
+
+            16.666666667% {
+                clip: rect(64px, 9999px, 39px, 0);
+            }
+
+            20.833333333% {
+                clip: rect(6px, 9999px, 7px, 0);
+            }
+
+            25% {
+                clip: rect(80px, 9999px, 21px, 0);
+            }
+
+            100% {
+                clip: rect(34px, 9999px, 49px, 0);
+            }
+        }
+
+        /* ===== CYBERPUNK TIMELINE ===== */
+        .timeline-section {
+            position: relative;
+            padding: 4rem 0;
+            overflow: hidden;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-50%);
+        }
+
+        .timeline-line-filled {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 0%;
+            /* JS will animate this */
+            background: #256af4;
+            box-shadow: 0 0 15px #256af4;
+            transform: translateX(-50%);
+            transition: height 0.1s linear;
+        }
+
+        .timeline-node {
+            position: relative;
+            margin-bottom: 4rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .timeline-node.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            background: #05080f;
+            border: 2px solid #256af4;
+            border-radius: 50%;
+            transform: translateX(-50%) scale(0);
+            z-index: 10;
+            transition: all 0.4s ease;
+        }
+
+        .timeline-node.active .timeline-dot {
+            transform: translateX(-50%) scale(1);
+            box-shadow: 0 0 20px rgba(37, 106, 244, 0.6);
+            background: #256af4;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+
+        .timeline-content:hover {
+            border-color: rgba(37, 106, 244, 0.3);
+            background: rgba(37, 106, 244, 0.05);
+        }
+
+        /* Connecting lines */
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 0;
+            height: 1px;
+            background: #256af4;
+            opacity: 0.5;
+            transition: width 0.5s ease;
+        }
+
+        .timeline-node:nth-child(odd) .timeline-content {
+            margin-right: auto;
+            text-align: right;
+            border-right: 2px solid #256af4;
+        }
+
+        .timeline-node:nth-child(odd) .timeline-content::before {
+            right: -5%;
+        }
+
+        .timeline-node:nth-child(even) .timeline-content {
+            margin-left: auto;
+            text-align: left;
+            border-left: 2px solid #256af4;
+        }
+
+        .timeline-node:nth-child(even) .timeline-content::before {
+            left: -5%;
+        }
+
+        .timeline-node.active .timeline-content::before {
+            width: 5%;
+        }
+
+        @media (max-width: 768px) {
+
+            .timeline-line,
+            .timeline-line-filled {
+                left: 20px;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+                text-align: left !important;
+                border-left: 2px solid #256af4 !important;
+                border-right: none !important;
+            }
+
+            .timeline-content::before {
+                left: -20px !important;
+                right: auto !important;
+                width: 20px !important;
+            }
+        }
+
         /* ===== PROJECT CARD TILT ===== */
         .tilt-card {
             transform-style: preserve-3d;
@@ -610,6 +865,123 @@
 
         .nav-link.active span {
             width: 100% !important;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        /* Particle dots */
+        .contact-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(37, 106, 244, 0.6);
+            pointer-events: none;
+            animation: particleDrift linear infinite;
+        }
+
+        @keyframes particleDrift {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-120px) scale(0.4);
+                opacity: 0;
+            }
+        }
+
+        /* Pulsing concentric rings */
+        .contact-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(37, 106, 244, 0.18);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.6);
+            animation: ringExpand 4s ease-out infinite;
+            pointer-events: none;
+        }
+
+        .contact-ring:nth-child(2) {
+            animation-delay: 1.3s;
+        }
+
+        .contact-ring:nth-child(3) {
+            animation-delay: 2.6s;
+        }
+
+        @keyframes ringExpand {
+            0% {
+                transform: translate(-50%, -50%) scale(0.4);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        /* Heading letter animation */
+        .contact-letter {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .contact-letter.lit {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Email button shimmer */
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(200%);
+            }
+        }
+
+        /* Staggered contact items */
+        .contact-item {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .contact-item.lit {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Social icon pulse on hover */
+        .social-icon:hover {
+            animation: iconPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes iconPop {
+            0% {
+                transform: scale(1);
+            }
+
+            60% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1.1);
+            }
         }
     </style>
 </head>
@@ -767,12 +1139,8 @@
                 </div>
                 <h1
                     class="mb-8 text-6xl font-bold leading-tight tracking-tighter text-white sm:text-7xl lg:text-9xl animate-reveal-up opacity-0 reveal-delay-100">
-                    <span class="block relative z-10 drop-shadow-[0_0_25px_rgba(37,106,244,0.6)]"
-                        style="-webkit-text-stroke: 1px rgba(255,255,255,0.1);">
-                        Adarsh Mishra
-                        <span
-                            class="absolute inset-0 bg-gradient-to-b from-white via-white to-transparent bg-clip-text text-transparent opacity-80 mix-blend-overlay">Adarsh
-                            Mishra</span>
+                    <span class="glitch-wrapper block relative z-10 drop-shadow-[0_0_25px_rgba(37,106,244,0.6)]">
+                        <span class="glitch-text" data-text="Adarsh Mishra" id="glitch-name">Adarsh Mishra</span>
                     </span>
                 </h1>
                 <div class="mb-12 h-10 sm:h-12 animate-reveal-up opacity-0 reveal-delay-200">
@@ -793,24 +1161,25 @@
                 </p>
                 <div
                     class="flex flex-col w-full sm:w-auto sm:flex-row gap-5 sm:gap-8 animate-reveal-up opacity-0 reveal-delay-400">
-                    <a class="group relative flex items-center justify-center gap-3 overflow-hidden rounded-sm bg-primary px-10 py-4 text-base font-bold text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,106,244,0.6)]"
+                    <a class="magnetic-btn group relative flex items-center justify-center gap-3 overflow-hidden rounded-sm bg-primary px-10 py-4 text-base font-bold text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,106,244,0.6)]"
                         href="#projects">
                         <div
                             class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1s_infinite]">
                         </div>
-                        <span class="relative z-10">INITIALIZE_PROJECTS</span>
                         <span
-                            class="material-symbols-outlined text-xl transition-transform group-hover:translate-x-1 relative z-10">arrow_forward_ios</span>
+                            class="relative z-10 inline-block transition-transform duration-100 ease-linear">INITIALIZE_PROJECTS</span>
                         <span
-                            class="absolute top-0 left-0 h-2 w-2 border-t-2 border-l-2 border-white opacity-50"></span>
+                            class="material-symbols-outlined text-xl transition-transform group-hover:translate-x-1 relative z-10 inline-block">arrow_forward_ios</span>
                         <span
-                            class="absolute bottom-0 right-0 h-2 w-2 border-b-2 border-r-2 border-white opacity-50"></span>
+                            class="absolute top-0 left-0 h-2 w-2 border-t-2 border-l-2 border-white opacity-50 pointer-events-none"></span>
+                        <span
+                            class="absolute bottom-0 right-0 h-2 w-2 border-b-2 border-r-2 border-white opacity-50 pointer-events-none"></span>
                     </a>
-                    <a class="group flex items-center justify-center gap-3 rounded-sm border border-white/10 bg-white/5 px-10 py-4 text-base font-bold text-white backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                    <a class="magnetic-btn group flex items-center justify-center gap-3 rounded-sm border border-white/10 bg-white/5 px-10 py-4 text-base font-bold text-white backdrop-blur-md transition-all duration-300 hover:bg-white/10 hover:border-primary/50 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
                         href="#contact">
-                        <span>ESTABLISH_UPLINK</span>
+                        <span class="inline-block transition-transform duration-100 ease-linear">ESTABLISH_UPLINK</span>
                         <span
-                            class="material-symbols-outlined text-xl group-hover:text-accent-green transition-colors">satellite_alt</span>
+                            class="material-symbols-outlined text-xl group-hover:text-accent-green transition-colors inline-block">satellite_alt</span>
                     </a>
                 </div>
                 <div
@@ -1251,41 +1620,67 @@
                 </div>
             </section>
 
-            <!-- Experience & Education -->
-            <section class="py-24 lg:py-32 relative text-center md:text-left">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                    <!-- Professional Experience -->
-                    <div>
-                        <h2
-                            class="text-3xl font-bold text-white mb-10 flex items-center justify-center lg:justify-start gap-3">
-                            <span class="material-symbols-outlined text-primary">work_history</span>
-                            FIELD OPERATIONS
-                        </h2>
-                        <div class="space-y-8 border-l-2 border-white/10 ml-4 md:ml-0 pl-8 md:pl-10 relative">
-                            <div class="relative">
-                                <div
-                                    class="absolute -left-[45px] md:-left-[47px] top-0 h-6 w-6 rounded-full bg-background-dark border-2 border-primary">
-                                </div>
-                                <h3 class="text-xl font-bold text-white">Security & Development Projects</h3>
-                                <p class="text-primary font-mono text-sm mb-2">Academic / Hackathon / Self-driven</p>
-                                <p class="text-slate-400">Hands-on work across web/mobile development and cybersecurity
-                                    labs, including building prototypes, performing basic vulnerability assessment, and
-                                    documenting findings.</p>
-                            </div>
-                            <div class="relative">
-                                <div
-                                    class="absolute -left-[45px] md:-left-[47px] top-0 h-6 w-6 rounded-full bg-background-dark border-2 border-primary">
-                                </div>
-                                <h3 class="text-xl font-bold text-white">Content Creator (Cybersecurity)</h3>
-                                <p class="text-primary font-mono text-sm mb-2">Hyper-A (YouTube)</p>
-                                <p class="text-slate-400">Created beginner-friendly content on ethical hacking concepts,
-                                    tools, and learning pathways; focused on awareness and practical demonstrations.</p>
-                            </div>
+            <!-- Experience Section -->
+            <section class="timeline-section" id="experience">
+                <div class="mb-16 md:mb-24 flex flex-col items-center" data-reveal>
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tighter">
+                        <span class="text-primary">&lt;</span> EXPERIENCE_LOG <span class="text-primary">/&gt;</span>
+                    </h2>
+                    <div class="h-1 w-24 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"></div>
+                </div>
+
+                <div class="max-w-4xl mx-auto relative px-4">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-line-filled"></div>
+
+                    <!-- Node 1 -->
+                    <div class="timeline-node">
+                        <div class="timeline-dot"></div>
+                        <div
+                            class="timeline-content hover:shadow-[0_0_30px_rgba(37,106,244,0.1)] transition-all duration-300">
+                            <span class="text-xs font-mono text-primary mb-2 block">2024 - PRESENT</span>
+                            <h3 class="text-xl font-bold text-white mb-1">Security & Development Projects</h3>
+                            <p class="text-sm text-slate-400 mb-3">Academic / Hackathon / Self-driven</p>
+                            <p class="text-slate-300 text-sm">Hands-on work across web/mobile development and
+                                cybersecurity labs. Built prototypes, performed vulnerability assessments, and
+                                documented findings.</p>
                         </div>
                     </div>
 
+                    <!-- Node 2 -->
+                    <div class="timeline-node">
+                        <div class="timeline-dot"></div>
+                        <div
+                            class="timeline-content hover:shadow-[0_0_30px_rgba(37,106,244,0.1)] transition-all duration-300">
+                            <span class="text-xs font-mono text-primary mb-2 block">2023 - PRESENT</span>
+                            <h3 class="text-xl font-bold text-white mb-1">Content Creator (Cybersecurity)</h3>
+                            <p class="text-sm text-slate-400 mb-3">Hyper-A (YouTube)</p>
+                            <p class="text-slate-300 text-sm">Created beginner-friendly content on ethical hacking
+                                concepts, tools, and learning pathways. Focused on awareness and practical
+                                demonstrations.</p>
+                        </div>
+                    </div>
+
+                    <!-- Node 3 -->
+                    <div class="timeline-node">
+                        <div class="timeline-dot"></div>
+                        <div
+                            class="timeline-content hover:shadow-[0_0_30px_rgba(37,106,244,0.1)] transition-all duration-300">
+                            <span class="text-xs font-mono text-primary mb-2 block">2023</span>
+                            <h3 class="text-xl font-bold text-white mb-1">IoT Security & Prototyping</h3>
+                            <p class="text-sm text-slate-400 mb-3">Hardware Security Labs</p>
+                            <p class="text-slate-300 text-sm">Worked with ESP8266/ESP32 for real-time IoT experiments
+                                and security learning (access-point concepts, device telemetry).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education & Awards -->
+            <section class="py-24 lg:py-32 relative text-center md:text-left">
+                <div class="max-w-4xl mx-auto">
                     <!-- Education -->
-                    <div>
+                    <div class="mb-16">
                         <h2
                             class="text-3xl font-bold text-white mb-10 flex items-center justify-center lg:justify-start gap-3">
                             <span class="material-symbols-outlined text-accent-green">school</span>
@@ -1302,91 +1697,129 @@
                                     assessment, and CTFs) and full‑stack development.</p>
                             </div>
                         </div>
-
-                        <!-- Achievements Section Integrated -->
-                        <div class="mt-16">
-                            <h2
-                                class="text-3xl font-bold text-white mb-10 flex items-center justify-center lg:justify-start gap-3">
-                                <span class="material-symbols-outlined text-yellow-500">emoji_events</span>
-                                HONORS & AWARDS
-                            </h2>
-                            <div class="space-y-4">
-                                <div
-                                    class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-yellow-500/50 transition-colors">
-                                    <div
-                                        class="h-10 w-10 flex items-center justify-center rounded-full bg-yellow-500/10 text-yellow-500">
-                                        <span class="material-symbols-outlined">trophy</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-white font-bold">1st Prize - Gyanotech</h4>
-                                        <p class="text-xs text-slate-400">Hackathon Winner</p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-yellow-500/50 transition-colors">
-                                    <div
-                                        class="h-10 w-10 flex items-center justify-center rounded-full bg-yellow-500/10 text-yellow-500">
-                                        <span class="material-symbols-outlined">workspace_premium</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-white font-bold">2nd Prize - VIVA-Tech Imperia</h4>
-                                        <p class="text-xs text-slate-400">Project Competition</p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-accent-green/50 transition-colors">
-                                    <div
-                                        class="h-10 w-10 flex items-center justify-center rounded-full bg-accent-green/10 text-accent-green">
-                                        <span class="material-symbols-outlined">verified</span>
-                                    </div>
-                                    <div>
-                                        <h4 class="text-white font-bold">Hack The Box Certifications</h4>
-                                        <p class="text-xs text-slate-400">Vulnerability Assessment, Ethical Hacking</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </div>
-            </section>
 
-            <!-- Contact Section -->
-            <section class="py-24 relative" id="contact">
-                <div class="absolute inset-0 bg-primary/5 skew-y-3 -z-10 transform origin-bottom-left"></div>
-                <div class="max-w-4xl mx-auto text-center">
-                    <h2 class="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tighter">
-                        READY TO <span class="text-primary">COLLABORATE?</span>
-                    </h2>
-                    <p class="text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
-                        Whether you need a full-stack architect or a security consultant, my comms channel is open.
-                        Let's build something secure and scalable.
-                    </p>
-                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-                        <a href="mailto:Mr.adarsh.work@gmail.com"
-                            class="group relative flex items-center gap-3 px-8 py-4 bg-white text-background-dark font-bold text-lg rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                    <!-- Achievements Section -->
+                    <div class="mt-16">
+                        <h2
+                            class="text-3xl font-bold text-white mb-10 flex items-center justify-center lg:justify-start gap-3">
+                            <span class="material-symbols-outlined text-yellow-500">emoji_events</span>
+                            HONORS & AWARDS
+                        </h2>
+                        <div class="space-y-4">
                             <div
-                                class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent-green/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-yellow-500/50 transition-colors">
+                                <div
+                                    class="h-10 w-10 flex items-center justify-center rounded-full bg-yellow-500/10 text-yellow-500">
+                                    <span class="material-symbols-outlined">trophy</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">1st Prize - Gyanotech</h4>
+                                    <p class="text-xs text-slate-400">Hackathon Winner</p>
+                                </div>
                             </div>
-                            <span class="material-symbols-outlined">mail</span>
-                            <span class="relative z-10">Mr.adarsh.work@gmail.com</span>
-                        </a>
-                        <div class="flex gap-4">
-                            <a href="https://www.linkedin.com/in/adarshmishra171/" target="_blank"
-                                class="h-14 w-14 flex items-center justify-center rounded-full bg-background-dark border border-white/20 text-white hover:border-primary hover:text-primary hover:scale-110 transition-all duration-300">
-                                <span class="text-xl font-bold">in</span>
-                            </a>
-                            <a href="https://github.com/Hyper-A171" target="_blank"
-                                class="h-14 w-14 flex items-center justify-center rounded-full bg-background-dark border border-white/20 text-white hover:border-accent-green hover:text-accent-green hover:scale-110 transition-all duration-300">
-                                <span class="material-symbols-outlined">code</span>
-                            </a>
+                            <div
+                                class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-yellow-500/50 transition-colors">
+                                <div
+                                    class="h-10 w-10 flex items-center justify-center rounded-full bg-yellow-500/10 text-yellow-500">
+                                    <span class="material-symbols-outlined">workspace_premium</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">2nd Prize - VIVA-Tech Imperia</h4>
+                                    <p class="text-xs text-slate-400">Project Competition</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-accent-green/50 transition-colors">
+                                <div
+                                    class="h-10 w-10 flex items-center justify-center rounded-full bg-accent-green/10 text-accent-green">
+                                    <span class="material-symbols-outlined">verified</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold">Hack The Box Certifications</h4>
+                                    <p class="text-xs text-slate-400">Vulnerability Assessment, Ethical Hacking</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+        </div>
+        </section>
 
-                <footer class="mt-24 pt-8 border-t border-white/5 text-center text-slate-500 text-sm">
-                    <p>&copy; 2024 Adarsh Mishra. All systems operational.</p>
-                </footer>
-            </section>
+        <!-- Contact Section -->
+        <section class="py-24 relative overflow-hidden" id="contact">
+
+            <!-- Animated background rings -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+                <div class="contact-ring" style="width:420px;height:420px;"></div>
+                <div class="contact-ring" style="width:420px;height:420px;"></div>
+                <div class="contact-ring" style="width:420px;height:420px;"></div>
+            </div>
+
+            <!-- Floating particles (JS-generated) -->
+            <div id="contact-particles" class="absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+
+            <!-- Skewed tint -->
+            <div class="absolute inset-0 bg-primary/5 skew-y-3 -z-10 transform origin-bottom-left"></div>
+
+            <div class="max-w-4xl mx-auto text-center relative z-10">
+
+                <!-- Animated heading -->
+                <h2 id="contact-heading"
+                    class="text-4xl md:text-6xl font-bold text-white mb-8 tracking-tighter leading-tight">
+                    READY TO <span class="text-primary">COLLABORATE?</span>
+                </h2>
+
+                <p class="contact-item text-xl text-slate-300 mb-12 max-w-2xl mx-auto">
+                    Whether you need a full-stack architect or a security consultant, my comms channel is open.
+                    Let's build something secure and scalable.
+                </p>
+
+                <div class="contact-item flex flex-col sm:flex-row items-center justify-center gap-6"
+                    style="transition-delay:0.15s">
+                    <!-- Email button -->
+                    <a href="mailto:Mr.adarsh.work@gmail.com"
+                        class="group relative flex items-center gap-3 px-8 py-4 bg-white text-background-dark font-bold text-lg rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(37,106,244,0.5)]">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent-green/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        </div>
+                        <!-- shimmer streak -->
+                        <div
+                            class="absolute inset-0 w-1/3 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:[animation:shimmer_0.7s_ease_forwards]">
+                        </div>
+                        <span class="material-symbols-outlined relative z-10">mail</span>
+                        <span class="relative z-10">Mr.adarsh.work@gmail.com</span>
+                    </a>
+
+                    <!-- Social icons -->
+                    <div class="flex gap-4">
+                        <a href="https://www.linkedin.com/in/adarshmishra171/" target="_blank"
+                            class="social-icon contact-item h-14 w-14 flex items-center justify-center rounded-full bg-background-dark border border-white/20 text-white hover:border-primary hover:text-primary transition-all duration-300"
+                            style="transition-delay:0.25s">
+                            <span class="text-xl font-bold">in</span>
+                        </a>
+                        <a href="https://github.com/Hyper-A171" target="_blank"
+                            class="social-icon contact-item h-14 w-14 flex items-center justify-center rounded-full bg-background-dark border border-white/20 text-white hover:border-accent-green hover:text-accent-green transition-all duration-300"
+                            style="transition-delay:0.35s">
+                            <span class="material-symbols-outlined">code</span>
+                        </a>
+                        <a href="https://www.youtube.com/@Hyper-A171" target="_blank"
+                            class="social-icon contact-item h-14 w-14 flex items-center justify-center rounded-full bg-background-dark border border-white/20 text-white hover:border-red-500 hover:text-red-500 transition-all duration-300"
+                            style="transition-delay:0.45s" title="YouTube">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-6 h-6">
+                                <path
+                                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="mt-24 pt-8 border-t border-white/5 text-center text-slate-500 text-sm relative z-10">
+                <p>&copy; 2026 Adarsh Mishra. All systems operational.</p>
+            </footer>
+        </section>
         </div>
     </main>
 
@@ -1552,6 +1985,180 @@
             }
 
         } // end initAnimations
+
+        // ============================================================
+        // 8. CONTACT SECTION ANIMATIONS
+        // ============================================================
+        (function initContact() {
+            var section = document.getElementById('contact');
+            if (!section) return;
+
+            // --- Floating particles ---
+            var particleWrap = document.getElementById('contact-particles');
+            if (particleWrap) {
+                function spawnParticle() {
+                    var p = document.createElement('div');
+                    p.className = 'contact-particle';
+                    var size = Math.random() * 4 + 2;
+                    var left = Math.random() * 100;
+                    var dur = Math.random() * 4 + 3;
+                    var delay = Math.random() * 5;
+                    var green = Math.random() > 0.6;
+                    p.style.cssText = [
+                        'width:' + size + 'px',
+                        'height:' + size + 'px',
+                        'left:' + left + '%',
+                        'bottom:' + (Math.random() * 40 + 5) + '%',
+                        'animation-duration:' + dur + 's',
+                        'animation-delay:' + delay + 's',
+                        green ? 'background:rgba(0,255,157,0.5)' : ''
+                    ].join(';');
+                    particleWrap.appendChild(p);
+                    setTimeout(function () { p.remove(); }, (dur + delay) * 1000 + 500);
+                }
+                for (var pi = 0; pi < 18; pi++) spawnParticle();
+                setInterval(spawnParticle, 600);
+            }
+
+            // --- Letter-by-letter heading reveal ---
+            var heading = document.getElementById('contact-heading');
+            if (heading) {
+                // Wrap each char in a span
+                var html = '';
+                var full = heading.innerHTML;
+                // Split preserving inner HTML tags
+                var parts = full.split(/(<[^>]+>)/);
+                parts.forEach(function (part) {
+                    if (part.match(/^<[^>]+>$/)) {
+                        html += part; // keep tags as-is
+                    } else {
+                        part.split('').forEach(function (ch) {
+                            if (ch === ' ') {
+                                html += ' ';
+                            } else {
+                                html += '<span class="contact-letter">' + ch + '</span>';
+                            }
+                        });
+                    }
+                });
+                heading.innerHTML = html;
+
+                var letters = heading.querySelectorAll('.contact-letter');
+                var headingObs = new IntersectionObserver(function (entries) {
+                    if (!entries[0].isIntersecting) return;
+                    letters.forEach(function (l, i) {
+                        setTimeout(function () { l.classList.add('lit'); }, i * 38);
+                    });
+                    headingObs.disconnect();
+                }, { threshold: 0.3 });
+                headingObs.observe(heading);
+            }
+
+            // --- Staggered contact-item entrance ---
+            var items = section.querySelectorAll('.contact-item');
+            if (items.length) {
+                var itemObs = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) return;
+                        entry.target.classList.add('lit');
+                        itemObs.unobserve(entry.target);
+                    });
+                }, { threshold: 0.15 });
+                items.forEach(function (el) { itemObs.observe(el); });
+            }
+        })();
+
+
+        // ============================================================
+        // 9. GLITCH TEXT SCRAMBLER
+        // ============================================================
+        (function initGlitchScramble() {
+            var el = document.getElementById('glitch-name');
+            if (!el) return;
+            var originalText = el.innerText;
+            var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&';
+            var interval = null;
+
+            el.parentElement.addEventListener('mouseenter', function () {
+                var iteration = 0;
+                clearInterval(interval);
+                interval = setInterval(function () {
+                    el.innerText = originalText.split('').map(function (letter, index) {
+                        if (index < iteration) return originalText[index]; return chars[Math.floor(Math.random() * chars.length)];
+                    }).join(''); if (iteration >= originalText.length) clearInterval(interval);
+                    iteration += 1 / 3;
+                }, 30);
+            });
+        })();
+
+        // ============================================================
+        // 10. MAGNETIC BUTTON EFFECT
+        // ============================================================
+        (function initMagneticButtons() {
+            var btns = document.querySelectorAll('.magnetic-btn');
+            btns.forEach(function (btn) {
+                btn.addEventListener('mousemove', function (e) {
+                    var rect = btn.getBoundingClientRect();
+                    var x = e.clientX - rect.left - rect.width / 2;
+                    var y = e.clientY - rect.top - rect.height / 2;
+
+                    // Button moves slightly
+                    btn.style.transform = 'translate(' + (x * 0.2) + 'px, ' + (y * 0.2) + 'px)';
+
+                    // Inner spans move more (parallax)
+                    var spans = btn.querySelectorAll('span');
+                    spans.forEach(function (span) {
+                        span.style.transform = 'translate(' + (x * 0.1) + 'px, ' + (y * 0.1) + 'px)';
+                    });
+                });
+
+                btn.addEventListener('mouseleave', function () {
+                    btn.style.transform = 'translate(0, 0)';
+                    var spans = btn.querySelectorAll('span');
+                    spans.forEach(function (span) {
+                        span.style.transform = 'translate(0, 0)';
+                    });
+                });
+            });
+        })();
+
+        // ============================================================
+        // 11. EXPERIENCE TIMELINE
+        // ============================================================
+        (function initTimeline() {
+            var section = document.querySelector('.timeline-section');
+            var lineFilled = document.querySelector('.timeline-line-filled');
+            var nodes = document.querySelectorAll('.timeline-node');
+
+            if (!section || !lineFilled) return;
+
+            window.addEventListener('scroll', function () {
+                var rect = section.getBoundingClientRect();
+                var triggerPoint = window.innerHeight * 0.5;
+
+                // Calculate how much of the section is visible/scrolled past center
+                var start = rect.top - triggerPoint;
+                var end = rect.bottom - triggerPoint;
+                var total = rect.height;
+
+                // Percentage (0 to 1)
+                var progress = 0;
+                if (rect.top < triggerPoint) {
+                    progress = Math.min(1, Math.abs(rect.top - triggerPoint) / total);
+                }
+
+                // Animate line height
+                lineFilled.style.height = (progress * 100) + '%';
+
+                // Animate nodes
+                nodes.forEach(function (node) {
+                    var nodeRect = node.getBoundingClientRect();
+                    if (nodeRect.top < window.innerHeight * 0.8) {
+                        node.classList.add('active');
+                    }
+                });
+            });
+        })();
     </script>
 </body>
 
