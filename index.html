@@ -12,6 +12,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css" />
+    <script src="./config.js"></script>
+    <script src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
         tailwind.config = {
@@ -983,6 +986,84 @@
                 transform: scale(1.1);
             }
         }
+        /* ===== GITHUB CALENDAR DARK OVERRIDES ===== */
+        #github-calendar .js-calendar-graph-table {
+            border-collapse: separate;
+            border-spacing: 3px;
+        }
+
+        /* Hide the skip link */
+        #github-calendar a[href="#calendar-jump"] {
+            display: none !important;
+        }
+
+        /* Calendar table wrapper */
+        .calendar {
+            background: transparent !important;
+            border: none !important;
+        }
+
+        /* All SVG and table element backgrounds */
+        #github-calendar svg,
+        #github-calendar rect[fill="#ebedf0"],
+        #github-calendar .ContributionCalendar-day[data-level="0"] {
+            fill: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        /* Label text - months and days */
+        #github-calendar text,
+        #github-calendar .contrib-legend text,
+        .calendar text {
+            fill: rgba(148, 163, 184, 0.7) !important;
+            font-family: 'Space Grotesk', monospace !important;
+            font-size: 9px !important;
+        }
+
+        /* Contribution levels - neon green palette */
+        #github-calendar rect[data-level="1"],
+        #github-calendar .ContributionCalendar-day[data-level="1"] { fill: rgba(0, 255, 157, 0.2) !important; }
+        #github-calendar rect[data-level="2"],
+        #github-calendar .ContributionCalendar-day[data-level="2"] { fill: rgba(0, 255, 157, 0.45) !important; }
+        #github-calendar rect[data-level="3"],
+        #github-calendar .ContributionCalendar-day[data-level="3"] { fill: rgba(0, 255, 157, 0.7) !important; }
+        #github-calendar rect[data-level="4"],
+        #github-calendar .ContributionCalendar-day[data-level="4"] {
+            fill: #00ff9d !important;
+            filter: drop-shadow(0 0 4px rgba(0, 255, 157, 0.8));
+        }
+
+        /* Legend squares */
+        #github-calendar .contrib-legend rect {
+            rx: 2;
+        }
+
+        /* Tooltip */
+        #github-calendar tool-tip,
+        .ghCalTip {
+            background: rgba(5, 8, 15, 0.95) !important;
+            border: 1px solid rgba(37, 106, 244, 0.4) !important;
+            color: #e2e8f0 !important;
+            font-family: 'Space Grotesk', monospace !important;
+            font-size: 10px !important;
+            border-radius: 6px !important;
+            box-shadow: 0 0 15px rgba(37, 106, 244, 0.2) !important;
+        }
+
+        /* Rounded cells */
+        #github-calendar rect {
+            rx: 2 !important;
+            ry: 2 !important;
+        }
+
+        /* "Skip to contributions year list" link - hide it */
+        #github-calendar > a:first-child {
+            display: none !important;
+        }
+
+        /* White background box - remove it */
+        #github-calendar table {
+            background: transparent !important;
+        }
     </style>
 </head>
 
@@ -1620,6 +1701,79 @@
                 </div>
             </section>
 
+            <!-- GitHub Analytics Section -->
+            <section class="py-24 lg:py-32 relative overflow-hidden" id="github-intelligence">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="mb-16 md:mb-24 flex flex-col items-center" data-reveal>
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tighter">
+                            <span class="text-primary">&lt;</span> REPOSITORY_ANALYTICS <span
+                                class="text-primary">/&gt;</span>
+                        </h2>
+                        <div
+                            class="h-1 w-24 bg-gradient-to-r from-transparent via-accent-green to-transparent opacity-50">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                        <!-- Profile Card -->
+                        <div class="lg:col-span-1" data-reveal data-reveal-delay="0">
+                            <div
+                                class="holo-card relative h-full rounded-2xl border border-white/10 bg-glass p-6 backdrop-blur-xl overflow-hidden group hover:border-primary/30 transition-all">
+                                <div class="flex flex-col items-center text-center">
+                                    <div class="relative mb-6">
+                                        <div class="absolute inset-0 rounded-full bg-primary/20 blur-xl animate-pulse">
+                                        </div>
+                                        <img id="github-avatar" src="https://github.com/Hyper-A171.png"
+                                            alt="GitHub Avatar"
+                                            class="relative z-10 w-24 h-24 rounded-full border-2 border-primary/40 p-1" />
+                                    </div>
+                                    <h3 id="github-name" class="text-xl font-bold text-white mb-1">Hyper-A</h3>
+                                    <p id="github-bio" class="text-xs text-slate-400 mb-6 font-mono max-w-[200px]">
+                                        Loading telemetry...</p>
+
+                                    <div class="grid grid-cols-2 gap-4 w-full">
+                                        <div class="p-3 rounded-lg bg-white/5 border border-white/5">
+                                            <p id="github-repos" class="text-xl font-bold text-primary">0</p>
+                                            <p class="text-[10px] uppercase tracking-widest text-slate-500">Repos</p>
+                                        </div>
+                                        <div class="p-3 rounded-lg bg-white/5 border border-white/5">
+                                            <p id="github-stars" class="text-xl font-bold text-accent-green">0</p>
+                                            <p class="text-[10px] uppercase tracking-widest text-slate-500">Stars</p>
+                                        </div>
+                                    </div>
+
+                                    <a href="https://github.com/Hyper-A171" target="_blank"
+                                        class="mt-6 flex items-center gap-2 group/link text-xs font-bold text-slate-400 hover:text-white transition-colors">
+                                        VIEW_GITHUB_PROFILE
+                                        <span
+                                            class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contribution Calendar -->
+                        <div class="lg:col-span-3" data-reveal data-reveal-delay="100">
+                            <div
+                                class="holo-card relative h-full rounded-2xl border border-white/10 bg-glass p-6 backdrop-blur-xl overflow-hidden group hover:border-primary/30 transition-all flex flex-col">
+                                <div class="flex items-center gap-3 mb-6">
+                                    <span class="material-symbols-outlined text-primary">analytics</span>
+                                    <h3 class="text-lg font-bold text-white">CONTRIBUTION_HEATMAP</h3>
+                                </div>
+                                <div id="github-calendar"
+                                    class="calendar bg-transparent border-none text-white overflow-x-auto min-h-[150px] flex items-center justify-center">
+                                    <div
+                                        class="animate-spin h-8 w-8 border-2 border-primary border-t-transparent rounded-full">
+                                    </div>
+                                </div>
+                                <p class="text-[10px] text-slate-500 mt-4 font-mono">Telemetry synced via GitHub API v3
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Experience Section -->
             <section class="timeline-section" id="experience">
                 <div class="mb-16 md:mb-24 flex flex-col items-center" data-reveal>
@@ -1984,6 +2138,7 @@
                 sections.forEach(function (s) { navObs.observe(s); });
             }
 
+            initGitHub();
         } // end initAnimations
 
         // ============================================================
@@ -2159,6 +2314,58 @@
                 });
             });
         })();
+
+        // ============================================================
+        // 12. GITHUB ANALYTICS ENGINE
+        // ============================================================
+        function initGitHub() {
+            const username = 'Hyper-A171';
+
+            // Read token from config.js (gitignored - never committed)
+            const cfg = window.PORTFOLIO_CONFIG || {};
+            const GITHUB_TOKEN = cfg.GITHUB_TOKEN || '';
+            const headers = GITHUB_TOKEN && GITHUB_TOKEN !== 'YOUR_NEW_TOKEN_HERE'
+                ? { 'Authorization': `Bearer ${GITHUB_TOKEN}` }
+                : {};
+
+            const calendarEl = document.getElementById('github-calendar');
+            if (!calendarEl) return;
+
+            // 1. Initialize Contribution Calendar
+            if (typeof GitHubCalendar !== 'undefined') {
+                GitHubCalendar("#github-calendar", username, {
+                    responsive: true,
+                    tooltips: true,
+                    global_stats: false
+                }).catch(err => {
+                    calendarEl.innerHTML = `<p class="text-red-500 text-[10px] font-mono">ENCRYPTED_DATA_SYNC_ERROR: ${err.message}</p>`;
+                });
+            }
+
+            // 2. Fetch Profile Stats
+            fetch(`https://api.github.com/users/${username}`, { headers })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.message === 'Not Found') throw new Error('User not found');
+
+                    document.getElementById('github-name').textContent = data.name || data.login;
+                    document.getElementById('github-bio').textContent = data.bio || 'Architecting secure digital landscapes.';
+                    document.getElementById('github-repos').textContent = data.public_repos;
+                    document.getElementById('github-avatar').src = data.avatar_url;
+
+                    return fetch(`https://api.github.com/users/${username}/repos?per_page=100`, { headers });
+                })
+                .then(res => res ? res.json() : null)
+                .then(repos => {
+                    if (!repos || !Array.isArray(repos)) return;
+                    const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
+                    document.getElementById('github-stars').textContent = totalStars;
+                })
+                .catch(err => {
+                    console.error('GitHub API error:', err);
+                    document.getElementById('github-bio').textContent = 'SYSTEM_OFFLINE: API_LIMIT_OR_NETWORK_ERROR';
+                });
+        }
     </script>
 </body>
 
