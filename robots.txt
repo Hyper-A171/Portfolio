@@ -1,0 +1,23 @@
+# robots.txt for https://mradarsh.tech/
+# Adarsh Mishra — Full Stack Developer Portfolio
+
+# Allow all crawlers full access
+User-agent: *
+Allow: /
+
+# Block sensitive config files
+Disallow: /config.js
+Disallow: /.git/
+Disallow: /.gitignore
+
+# Googlebot-specific directives (maximum indexing signals)
+User-agent: Googlebot
+Allow: /
+Allow: /img/
+Allow: /doc/
+
+# Sitemap location
+Sitemap: https://mradarsh.tech/sitemap.xml
+
+# Host directive (legacy, still respected by some crawlers)
+Host: https://mradarsh.tech
